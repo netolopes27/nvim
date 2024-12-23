@@ -1,6 +1,6 @@
-sudo apt install build-essentials
-Clone in ~/.config/
-:Mason
-    Install lua language server
-    Install stylua
-    ...
+sudo apt install build-essentials </br>
+Clone in ~/.config/ </br>
+:Mason </br>
+    Install lua language server </br>
+    Install stylua  </br>
+    ...  </br>
