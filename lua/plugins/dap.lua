@@ -3,16 +3,19 @@ return {
   dependencies = {
     "rcarriga/nvim-dap-ui",
     "nvim-neotest/nvim-nio",
-    "nvim-neotest/nvim-nio",
   },
   config = function()
     local dap, dapui = require("dap"), require("dapui")
+
+    local mason_registry = require("mason-registry")
+    local codelldb_path = mason_registry.get_package("codelldb"):get_install_path()
+      .. "/extension/adapter/codelldb"
 
     dap.adapters.codelldb = {
       type = "server",
       port = "${port}",
       executable = {
-        command = "/usr/bin/lldb-vscode-14",
+        command = codelldb_path,
         args = { "--port", "${port}" },
       },
     }
@@ -45,7 +48,14 @@ return {
       dapui.close()
     end
 
-    vim.keymap.set("n", "<Leader>dt", dap.toggle_breakpoint, {})
-    vim.keymap.set("n", "<Leader>dc", dap.continue, {})
+    vim.keymap.set("n", "<Leader>dt", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
+    vim.keymap.set("n", "<Leader>dc", dap.continue, { desc = "Continue" })
+    vim.keymap.set("n", "<Leader>di", dap.step_into, { desc = "Step into" })
+    vim.keymap.set("n", "<Leader>do", dap.step_over, { desc = "Step over" })
+    vim.keymap.set("n", "<Leader>dO", dap.step_out, { desc = "Step out" })
+    vim.keymap.set("n", "<Leader>dx", dap.terminate, { desc = "Terminate" })
+    vim.keymap.set("n", "<Leader>dr", dap.repl.open, { desc = "Open REPL" })
+    vim.keymap.set("n", "<Leader>dl", dap.run_last, { desc = "Run last" })
+    vim.keymap.set("n", "<Leader>du", dapui.toggle, { desc = "Toggle DAP UI" })
   end,
 }

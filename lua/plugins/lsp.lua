@@ -10,6 +10,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
     opts = {
+      ensure_installed = { "lua_ls", "pyright" },
       automatic_installation = true,
     },
   },
@@ -20,30 +21,26 @@ return {
     opts = {
       automatic_installation = true,
       handlers = {},
-      ensure_installed = {},
+      ensure_installed = { "codelldb" },
     },
   },
   {
     "neovim/nvim-lspconfig",
-    init_options = {
-      userLanguages = {
-        eelixir = "html-eex",
-        eruby = "erb",
-        rust = "html",
-      },
-    },
     lazy = false,
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lspconfig = require("lspconfig")
 
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
+      vim.lsp.config("*", { capabilities = capabilities })
+      vim.lsp.enable({ "lua_ls", "pyright" })
 
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "References" })
+      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
+      vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+      vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature help" })
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
     end,
   },
 }
