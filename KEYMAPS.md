@@ -63,6 +63,31 @@ Leader = `Espaço`. Atalhos com `*` são buffer-local (só ativam quando o LSP/p
 | `<leader>fG` | n | Git files |
 | `<leader>fs` | n | Symbols do documento (LSP) |
 | `<leader>fws` | n | Symbols do workspace (LSP) |
+| `<leader>ft` | n | Find TODOs (todo-comments) |
+
+## Trouble
+
+| Atalho | Modo | Ação |
+| --- | --- | --- |
+| `<leader>xx` | n | Diagnostics (workspace) |
+| `<leader>xX` | n | Diagnostics do buffer atual |
+| `<leader>xL` | n | Location list |
+| `<leader>xQ` | n | Quickfix list |
+| `<leader>xt` | n | TODOs (todo-comments) |
+| `<leader>cs` | n | Symbols do documento |
+| `<leader>cl` | n | LSP defs/refs (painel à direita) |
+
+## Surround (nvim-surround)
+
+Operadores padrão do plugin — funcionam em qualquer texto-objeto.
+
+| Atalho | Modo | Ação |
+| --- | --- | --- |
+| `ys{motion}{char}` | n | Adiciona surround (ex.: `ysiw"` envolve a palavra em `"`) |
+| `yss{char}` | n | Surround na linha inteira |
+| `S{char}` | v | Surround na seleção |
+| `ds{char}` | n | Remove o surround |
+| `cs{old}{new}` | n | Troca surround (ex.: `cs"'` troca `"` por `'`) |
 
 ## Formatação (conform.nvim)
 
@@ -89,6 +114,12 @@ Leader = `Espaço`. Atalhos com `*` são buffer-local (só ativam quando o LSP/p
 | `<leader>dr` | n | Abrir REPL |
 | `<leader>dl` | n | Rodar última config |
 | `<leader>du` | n | Toggle DAP UI |
+
+## LazyGit
+
+| Atalho | Modo | Ação |
+| --- | --- | --- |
+| `<leader>gg` | n | Abrir LazyGit |
 
 ## Git — gitsigns *
 
@@ -118,7 +149,7 @@ Ativo apenas em buffers `.rs`.
 | `<leader>?` | n | Popup com keymaps locais do buffer |
 | `<leader>` (qualquer prefixo) | n | Popup com continuações disponíveis |
 
-Grupos registados: `f` find, `h` hunk (git), `d` debug/diagnostic, `g` git/format, `c` code, `s` split, `b` buffer, `r` rename.
+Grupos registados: `f` find, `h` hunk (git), `d` debug/diagnostic, `g` git/format, `c` code, `s` split, `b` buffer, `r` rename, `x` trouble/diagnostics.
 
 ## Legenda de modos
 

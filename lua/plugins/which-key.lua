@@ -13,6 +13,7 @@ return {
       { "<leader>s", group = "split" },
       { "<leader>b", group = "buffer" },
       { "<leader>r", group = "rename" },
+      { "<leader>x", group = "trouble/diagnostics" },
     },
   },
   keys = {
