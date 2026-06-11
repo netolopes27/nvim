@@ -22,12 +22,15 @@ Leader key is **Space** (set in `lua/options.lua`).
 
 `which-key.nvim` is installed — pressing `<leader>` shows a popup with the available continuations, so you don't need to memorize the full set.
 
-## LSP / DAP / formatters
+## LSP / DAP / formatters / linters
 
 - LSP servers and DAP adapters are installed via **Mason** (`:Mason`). `mason-lspconfig` has `ensure_installed = { "lua_ls", "pyright" }`; `mason-nvim-dap` has `ensure_installed = { "codelldb" }`. Both also have `automatic_installation = true`.
+- Formatters and linters are auto-installed by **mason-tool-installer** (spec in `lua/plugins/lsp.lua`): `ensure_installed = { "stylua", "prettier", "black", "ruff" }`. Add new CLI tools there, not in the README as a manual step.
 - Completion capabilities come from `cmp_nvim_lsp` and are passed into every `lspconfig.*.setup` call — preserve this when adding new servers.
-- Formatting goes through **conform.nvim** (`lua/plugins/conform.lua`): `formatters_by_ft` maps filetypes to formatters (stylua, prettier, black). Trigger with `<leader>gf`.
+- Formatting goes through **conform.nvim** (`lua/plugins/conform.lua`): `formatters_by_ft` maps filetypes to formatters (stylua, prettier, black). **Format-on-save is enabled** (guarded by `vim.g.disable_autoformat` / `vim.b.disable_autoformat`, toggled via `:FormatDisable[!]` / `:FormatEnable`); manual trigger is `<leader>gf`.
+- Linting goes through **nvim-lint** (`lua/plugins/lint.lua`): `linters_by_ft` currently maps python → ruff, running on BufReadPost/BufWritePost/InsertLeave.
 - Rust has its own path via **rustaceanvim** (`lua/plugins/rustaceanvim.lua`), which auto-configures `rust-analyzer` and wires `codelldb` from Mason into nvim-dap. Do not add a `rust_analyzer` setup in `lsp.lua` — rustaceanvim handles it.
+- `lsp.lua` deletes Neovim 0.11's default `gr*` keymaps (`grn`, `grr`, `gri`, `gra`, `grt`) so the custom `gr` (references) fires without the keymap timeout — don't re-add bindings under the `gr` prefix.
 
 ## Editing this config
 
@@ -37,4 +40,4 @@ Leader key is **Space** (set in `lua/options.lua`).
 
 ## Setup prerequisites (from README)
 
-Droid Nerd Font, `unzip`, `build-essential`. After first launch, open `:Mason` and install at least `lua-language-server` and `stylua`.
+Neovim **0.11+** (the config uses `vim.lsp.config`/`vim.lsp.enable`/`vim.diagnostic.jump`), a Nerd Font, `unzip`, `build-essential` (also compiles `telescope-fzf-native` via `make`). Everything else (LSPs, DAP, formatters, linters) is auto-installed by Mason on first launch — no manual `:Mason` step needed. Full from-scratch instructions live in `README.md`.

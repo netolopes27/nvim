@@ -1,10 +1,25 @@
 vim.g.mapleader = " "
 
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
+vim.opt.smartindent = true
+
+vim.opt.termguicolors = true
+vim.opt.signcolumn = "yes"
+vim.opt.cursorline = true
+vim.opt.scrolloff = 8
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+vim.opt.undofile = true
+
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 local map = vim.keymap.set
 
@@ -40,7 +55,7 @@ map("n", "<leader>sh", "<cmd>split<CR>", { desc = "Horizontal split" })
 
 map("n", "<S-l>", "<cmd>bnext<CR>", { desc = "Next buffer" })
 map("n", "<S-h>", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
-map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Close buffer" })
+-- <leader>bd (fechar buffer preservando a janela) vive em lua/plugins/bufremove.lua
 
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
@@ -52,3 +67,10 @@ map("n", "N", "Nzzzv", { desc = "Previous match (centered)" })
 
 map("v", "<leader>p", [["_dP]], { desc = "Paste without yanking" })
 map({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("HighlightYank", { clear = true }),
+  callback = function()
+    vim.hl.on_yank()
+  end,
+})

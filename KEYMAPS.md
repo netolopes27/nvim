@@ -26,7 +26,7 @@ Leader = `Espaço`. Atalhos com `*` são buffer-local (só ativam quando o LSP/p
 | `<leader>sv` | n | Split vertical |
 | `<leader>sh` | n | Split horizontal |
 | `<S-l>` / `<S-h>` | n | Próximo / anterior buffer |
-| `<leader>bd` | n | Fechar buffer |
+| `<leader>bd` | n | Fechar buffer preservando a janela (`mini.bufremove`) |
 
 ## Diagnósticos
 
@@ -95,11 +95,13 @@ Operadores padrão do plugin — funcionam em qualquer texto-objeto.
 | --- | --- | --- |
 | `<leader>gf` | n,v | Formatar buffer |
 
+> Formatação automática ao salvar está ativa. Comandos: `:FormatDisable` (global), `:FormatDisable!` (só o buffer atual), `:FormatEnable` (reativa).
+
 ## Neo-tree
 
 | Atalho | Modo | Ação |
 | --- | --- | --- |
-| `<C-n>` | n | Abrir Neo-tree à esquerda |
+| `<C-n>` | n | Abre/fecha o Neo-tree à esquerda |
 
 ## DAP (debug)
 

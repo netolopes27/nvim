@@ -41,13 +41,12 @@ return {
           { name = "luasnip" },
           { name = "path" },
           { name = "crates" },
-        }, { name = "buffer" }),
+        }, { { name = "buffer" } }),
       })
     end,
   },
   {
     "abecodes/tabout.nvim",
-    lazy = false,
     config = function()
       require("tabout").setup({
         tabkey = "<Tab>",
@@ -70,14 +69,12 @@ return {
         exclude = {},
       })
     end,
-    requires = {
+    dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "L3MON4D3/LuaSnip",
       "hrsh7th/nvim-cmp",
     },
-    opt = true,
     event = "InsertCharPre",
-    priority = 1000,
   },
   {
     "windwp/nvim-autopairs",

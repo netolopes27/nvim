@@ -15,6 +15,14 @@ return {
     },
   },
   {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = "mason.nvim",
+    lazy = false,
+    opts = {
+      ensure_installed = { "stylua", "prettier", "black", "ruff" },
+    },
+  },
+  {
     "jay-babu/mason-nvim-dap.nvim",
     dependencies = "mason.nvim",
     cmd = { "DapInstall", "DapUninstall" },
@@ -41,6 +49,13 @@ return {
       vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature help" })
       vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
+
+      -- os gr* padrão do 0.11 fazem o `gr` acima esperar o timeout de tecla;
+      -- removê-los deixa o `gr` instantâneo (rename/code action já têm <leader>rn/<leader>ca)
+      for _, lhs in ipairs({ "grn", "grr", "gri", "gra", "grt" }) do
+        pcall(vim.keymap.del, "n", lhs)
+        pcall(vim.keymap.del, "x", lhs)
+      end
     end,
   },
 }
